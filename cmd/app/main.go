@@ -7,15 +7,17 @@ import (
 	"main/internal/handlers"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	e := echo.New()
 
 	config.Connect()
+	e.Use(middleware.Logger())
 
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
+		return c.HTML(http.StatusOK, "<h1>Hello, World!</h1>")
 	})
 
 	e.GET("/dogs", handlers.GetDogs)
