@@ -11,20 +11,20 @@ import (
 )
 
 func main() {
-	e := echo.New()
+	router := echo.New()
 
 	config.Connect()
-	e.Use(middleware.Logger())
+	router.Use(middleware.Logger())
 
-	e.GET("/", func(c echo.Context) error {
+	router.GET("/", func(c echo.Context) error {
 		return c.HTML(http.StatusOK, "<h1>Hello, World!</h1>")
 	})
 
-	e.GET("/dogs", handlers.GetDogs)
-	e.GET("/dogs/:id", handlers.GetDog)
-	e.POST("/dogs", handlers.AddDog)
-	e.PUT("/dogs/:id", handlers.UpdateDog)
-	e.DELETE("/dogs/:id", handlers.DeleteDog)
+	router.GET("/dogs", handlers.GetDogs)
+	router.GET("/dogs/:id", handlers.GetDog)
+	router.POST("/dogs", handlers.AddDog)
+	router.PUT("/dogs/:id", handlers.UpdateDog)
+	router.DELETE("/dogs/:id", handlers.DeleteDog)
 
-	e.Logger.Fatal(e.Start(":5000"))
+	router.Logger.Fatal(router.Start(":5000"))
 }
